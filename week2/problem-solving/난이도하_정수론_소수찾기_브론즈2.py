@@ -2,7 +2,7 @@
 # 문제 링크: https://www.acmicpc.net/problem/1978
 numCount=int(input())
 placeholder=0
-data=list(map(int, input()).split())
+data=list(map(int, input().split()))
 for x in data:
     if x < 2: 
         continue
