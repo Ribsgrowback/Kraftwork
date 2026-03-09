@@ -22,6 +22,9 @@
 - 방법3: 해시 집합 사용 (O(n) 시간, O(n) 공간)
 """
 
+from multiprocessing.reduction import duplicate
+
+
 def find_duplicates_brute_force(nums):
     """
     방법1: 이중 반복문 사용
@@ -35,7 +38,11 @@ def find_duplicates_brute_force(nums):
     ## i번째 원소와 i+1 이후의 모든 원소를 비교
     ## 같은 원소를 찾으면 duplicates에 추가 (중복 추가 방지 필요)
     pass
-    
+    for i in range(n):
+        for j in range(i+1, n):
+            if nums[i]==nums[j]: #i번째 원소가 i+1 이후의 원소들과 같은지 비교
+                if nums[i] not in duplicates: #duplicates 에 이미 있는지 체크
+                    duplicates.append(nums[j])
     return duplicates
 
 def find_duplicates_sorting(nums):
@@ -49,13 +56,16 @@ def find_duplicates_sorting(nums):
     
     # TODO: 배열을 정렬하세요 (nums.sort() 사용)
     pass
-    
+    nums.sort()
     duplicates = []
     
     # TODO: 인접한 원소를 비교하여 중복 찾기
     # i와 i+1 원소가 같고, duplicates에 없으면 추가
     pass
-    
+    for i in range(len(nums)-1): #-1은 마지막 원소 바로 전까지만 체크 (어짜피 i+1을 체크해서  i를 duplicates에 삽입)
+        if nums[i]==nums[i+1]:
+            if nums[i] not in duplicates: #duplicates 에 이미 있는지 체크
+                duplicates.append(nums[i])
     return duplicates
 
 def find_duplicates_hash(nums):
@@ -65,15 +75,19 @@ def find_duplicates_hash(nums):
     공간 복잡도: O(n)
     """
     seen = set()
-    duplicates = set()
+    duplicates = []
     
     # TODO: 각 원소를 순회하면서
     ## 이미 seen에 있으면 duplicates에 추가
     ## 없으면 seen에 추가
     pass
+    for num in nums:
+        if num in seen:          #본적 있음 리스트에 있나?
+            duplicates.append(num)  #duplicates 에 추가
+        else:                   #본적 없음 리스트에 없나?
+            seen.add(num)        #본적 있음에 추가
+    return duplicates
     
-    return list(duplicates)
-
 def measure_time(func, nums, method_name):
     """실행 시간 측정 헬퍼 함수"""
     result = func(nums[:])  # 복사본 전달
