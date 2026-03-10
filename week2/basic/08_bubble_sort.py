@@ -22,6 +22,9 @@
 - 최적화: 교환이 없으면 이미 정렬된 것이므로 조기 종료
 """
 
+from operator import truediv
+
+
 def bubble_sort(arr):
     """
     버블 정렬 구현
@@ -42,7 +45,15 @@ def bubble_sort(arr):
     ## arr[j] > arr[j+1]이면 교환
     ## 외부 반복문: n-1번 실행
     pass
-        
+    placeholder = 0
+    for i in range(n-1):
+        for  j in range(n-i-1):
+            if arr[j] > arr[j+1]:
+                placeholder = arr[j]
+                arr[j]=arr[j+1]
+                arr[j+1]=placeholder
+
+
     return arr
 
 def bubble_sort_optimized(arr):
@@ -59,6 +70,16 @@ def bubble_sort_optimized(arr):
     
     for i in range(n):
         swapped = False  # 교환 발생 여부
+        placeholder = 0
+        for  j in range(n-i-1):
+                
+                if arr[j] > arr[j+1] :
+                    placeholder = arr[j]
+                    arr[j]=arr[j+1]
+                    arr[j+1]=placeholder
+                    swapped = True            
+        if not swapped :
+            break #for문 회수가 남았는데 swapped가 false인 채이면 break
         
         # TODO: 내부 반복문과 교환 로직 구현
         # 교환이 발생하면 swapped = True 설정        
