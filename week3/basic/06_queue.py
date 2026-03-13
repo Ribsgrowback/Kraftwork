@@ -25,6 +25,7 @@
 """
 
 from collections import deque
+from multiprocessing import process
 
 def process_print_queue(jobs):
     """
@@ -45,7 +46,10 @@ def process_print_queue(jobs):
     ## 큐에서 작업 꺼내기
     ## 작업 처리 (출력 및 리스트에 추가)
     pass
-    
+    while (len(queue)>0):
+        processed.append(queue[0])
+        print(f"처리: {queue[0]}")
+        queue.popleft()            #queue.pop(0) 작동 안되서 popleft로 교체
     return processed
 
 # 테스트 케이스
