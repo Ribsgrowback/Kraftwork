@@ -50,10 +50,11 @@ def climb_stairs(n):
     if n <= 2:
         return n
     dp = [0] * (n + 1)
+    
+    # TODO: 작은 문제부터 차례로 계산
     dp[1] = 1
     dp[2] = 2
 
-    # TODO: 작은 문제부터 차례로 계산
     for i in range(3, n + 1):
         dp[i] = dp[i - 1] + dp[i - 2]
 
